@@ -4,6 +4,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '../src/'))
 
 import sqlite3
 from db import UserDb
+from exception import UserNotFoundException
 
 def test_db_user_init():
     dbPath = 'test_db_user_init.db'
@@ -64,7 +65,10 @@ def test_db_user_get_not_exist():
     userDb = UserDb(dbPath)
 
     user = userDb.get(0)
-    assert user == None
+    if user == None:
+        assert True
+    else:
+        assert False
 
 def test_db_user_getAll():
     dbPath = 'test_db_user_getAll.db'
@@ -92,7 +96,7 @@ def test_db_user_set():
     if user1 == None:
         assert False
 
-    user2 = userDb.set( user1['id'], 'Bob' )
+    user2 = userDb.update( user1['id'], 'Bob' )
     if user2 == None:
         assert False
     
@@ -107,8 +111,13 @@ def test_db_user_set_not_exist():
     
     userDb = UserDb(dbPath)
 
-    user = userDb.set(0, 'test')
-    assert user == None
+    try:
+        user = userDb.update(0, 'test')
+    except UserNotFoundException:
+        assert True
+        return
+    
+    assert False
 
 def test_db_user_delete():
     dbPath = 'test_db_user_delete.db'
@@ -125,7 +134,10 @@ def test_db_user_delete():
     userDb.delete(user1['id'])
 
     user2 = userDb.get(user1['id'])
-    assert user2 == None
+    if user2 == None:
+        assert True
+    else:
+        assert False
 
 def test_db_user_delete_not_exist():
     dbPath = 'test_db_user_delete_not_exist.db'
@@ -138,4 +150,7 @@ def test_db_user_delete_not_exist():
     userDb.delete(0)
 
     user = userDb.get(0)
-    assert user == None
+    if user == None:
+        assert True
+    else:
+        assert False
