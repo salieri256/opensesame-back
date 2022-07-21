@@ -9,18 +9,18 @@ class UserDb:
 
         try:
             self.cur = con.cursor()
-            self.cur.execute('CREATE TABLE IF NOT EXISTS USERS(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)')
+            self.cur.execute('CREATE TABLE IF NOT EXISTS USER(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)')
         except sqlite3.Error:
-            raise SqlSyntaxException('Could not create "USERS" table.')
+            raise SqlSyntaxException('Could not create "USER" table.')
 
     def add(self, name: str) -> UserType:
         try:
-            self.cur.execute('INSERT INTO USERS(name) values("{0}")'.format(name))
+            self.cur.execute('INSERT INTO USER(name) values("{0}")'.format(name))
         except sqlite3.Error:
             raise SqlSyntaxException('Could not insert user.')
 
         try:
-            self.cur.execute('SELECT * FROM USERS WHERE ROWID = last_insert_rowid()')
+            self.cur.execute('SELECT * FROM USER WHERE ROWID = last_insert_rowid()')
         except sqlite3.Error:
             raise SqlSyntaxException('Could not select user.')
 
@@ -35,7 +35,7 @@ class UserDb:
 
     def get(self, id: int) -> UserType | None:
         try:
-            self.cur.execute('SELECT * FROM USERS WHERE id = {0}'.format(id))
+            self.cur.execute('SELECT * FROM USER WHERE id = {0}'.format(id))
         except sqlite3.Error:
             raise SqlSyntaxException('Could not select user.')
         
@@ -50,7 +50,7 @@ class UserDb:
 
     def getAll(self) -> list[UserType]:
         try:
-            self.cur.execute('SELECT * FROM USERS')
+            self.cur.execute('SELECT * FROM USER')
         except sqlite3.Error:
             raise SqlSyntaxException('Could not select users.')
 
@@ -59,12 +59,12 @@ class UserDb:
     
     def update(self, id: int, name: str) -> UserType:
         try:
-            self.cur.execute('UPDATE USERS SET name = "{0}" WHERE id = {1}'.format(name, id))
+            self.cur.execute('UPDATE USER SET name = "{0}" WHERE id = {1}'.format(name, id))
         except sqlite3.Error:
             raise SqlSyntaxException('Could not update user.')
         
         try:
-            self.cur.execute('SELECT * FROM USERS WHERE id = {0}'.format(id))
+            self.cur.execute('SELECT * FROM USER WHERE id = {0}'.format(id))
         except sqlite3.Error:
             raise SqlSyntaxException('Coud not select user.')
         
@@ -79,6 +79,6 @@ class UserDb:
 
     def delete(self, id: int) -> None:
         try:
-            self.cur.execute('DELETE FROM USERS WHERE id = {0}'.format(id))
+            self.cur.execute('DELETE FROM USER WHERE id = {0}'.format(id))
         except sqlite3.Error:
             raise SqlSyntaxException('Could not delete user.')

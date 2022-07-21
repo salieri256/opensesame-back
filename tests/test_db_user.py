@@ -18,7 +18,7 @@ def test_db_user_init():
     con.row_factory = sqlite3.Row
     cur = con.cursor()
 
-    userTableNum = cur.execute('SELECT COUNT(*) FROM sqlite_master WHERE TYPE="table" AND name="USERS"').fetchone()[0]
+    userTableNum = cur.execute('SELECT COUNT(*) FROM sqlite_master WHERE TYPE="table" AND name="USER"').fetchone()[0]
 
     assert userTableNum == 1
 
