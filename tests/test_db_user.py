@@ -84,7 +84,7 @@ def test_db_user_getAll():
     userList = userDb.getAll()
     assert len(userList) == 2
 
-def test_db_user_set():
+def test_db_user_update():
     dbPath = 'test_db_user_set.db'
 
     if os.path.isfile(dbPath):
@@ -103,7 +103,7 @@ def test_db_user_set():
     assert user1['id'] == user2['id']
     assert user2['name'] == 'Bob'
 
-def test_db_user_set_not_exist():
+def test_db_user_update_not_exist():
     dbPath = 'test_db_user_set_not_exist.db'
 
     if os.path.isfile(dbPath):
@@ -111,13 +111,11 @@ def test_db_user_set_not_exist():
     
     userDb = UserDb(dbPath)
 
-    try:
-        user = userDb.update(0, 'test')
-    except UserNotFoundException:
+    user = userDb.update(0, 'test')
+    if user == None:
         assert True
-        return
-    
-    assert False
+    else:
+        assert False
 
 def test_db_user_delete():
     dbPath = 'test_db_user_delete.db'

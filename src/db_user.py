@@ -57,7 +57,7 @@ class UserDb:
         users = self.cur.fetchall()
         return users
     
-    def update(self, id: int, name: str) -> UserType:
+    def update(self, id: int, name: str) -> UserType | None:
         try:
             self.cur.execute('UPDATE USER SET name = "{0}" WHERE id = {1}'.format(name, id))
         except sqlite3.Error:
@@ -70,7 +70,7 @@ class UserDb:
         
         user = self.cur.fetchone()
         if user == None:
-            raise UserNotFoundException('Could not found user.')
+            return None
         
         return {
             'id': user[0],
