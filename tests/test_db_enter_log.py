@@ -86,7 +86,7 @@ def test_db_enter_log_getAll():
     enterList = enterDb.getAll()
     assert len(enterList) == 2
 
-def test_db_enter_log_set():
+def test_db_enter_log_update():
     dbPath = 'test_db_enter_log_set.db'
 
     if os.path.isfile(dbPath):
@@ -98,7 +98,7 @@ def test_db_enter_log_set():
     if enter1 == None:
         assert False
 
-    enter2 = enterDb.set( enter1['id'], 1, 1000, 1 )
+    enter2 = enterDb.update( enter1['id'], 1, 1000, 1 )
     if enter2 == None:
         assert False
     
@@ -107,7 +107,7 @@ def test_db_enter_log_set():
     assert enter2['unixTime'] == 1000
     assert enter2['userId'] == 1
 
-def test_db_enter_log_set_not_exist():
+def test_db_enter_log_update_not_exist():
     dbPath = 'test_db_enter_log_set_not_exist.db'
 
     if os.path.isfile(dbPath):
@@ -115,7 +115,7 @@ def test_db_enter_log_set_not_exist():
     
     enterDb = EnterLogDb(dbPath)
 
-    enter = enterDb.set(0, 0, 0, 0)
+    enter = enterDb.update(0, 0, 0, 0)
     assert enter == None
 
 def test_db_enter_log_delete():

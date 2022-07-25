@@ -16,65 +16,64 @@ class UserDb:
     def add(self, name: str) -> UserType:
         try:
             self.cur.execute('INSERT INTO USER(name) values("{0}")'.format(name))
-        except sqlite3.Error:
-            raise SqlSyntaxException('Could not insert user.')
-
-        try:
             self.cur.execute('SELECT * FROM USER WHERE ROWID = last_insert_rowid()')
         except sqlite3.Error:
-            raise SqlSyntaxException('Could not select user.')
+            raise SqlSyntaxException('Could not add user.')
 
-        user = self.cur.fetchone()
-        if user == None:
-            raise UserNotFoundException('Could not found user.')
+        userRecord = self.cur.fetchone()
+        if userRecord == None:
+            raise UserNotFoundException('Could not find user.')
 
         return {
-            'id': user[0],
-            'name': user[1]
+            'id': userRecord[0],
+            'name': userRecord[1]
         }
 
     def get(self, id: int) -> UserType | None:
         try:
             self.cur.execute('SELECT * FROM USER WHERE id = {0}'.format(id))
         except sqlite3.Error:
-            raise SqlSyntaxException('Could not select user.')
+            raise SqlSyntaxException('Could not get user.')
         
-        user = self.cur.fetchone()
-        if user == None:
+        userRecord = self.cur.fetchone()
+        if userRecord == None:
             return None
         
         return {
-            'id': user[0],
-            'name': user[1]
+            'id': userRecord[0],
+            'name': userRecord[1]
         }
 
     def getAll(self) -> list[UserType]:
         try:
             self.cur.execute('SELECT * FROM USER')
         except sqlite3.Error:
-            raise SqlSyntaxException('Could not select users.')
+            raise SqlSyntaxException('Could not get users.')
 
-        users = self.cur.fetchall()
-        return users
+        userRecordList = self.cur.fetchall()
+        userList: list[UserType] = []
+        for userRecord in userRecordList:
+            userList.append({
+                'id': userRecord[0],
+                'name': userRecord[1]
+            })
+
+        return userList
     
     def update(self, id: int, name: str) -> UserType | None:
         try:
             self.cur.execute('UPDATE USER SET name = "{0}" WHERE id = {1}'.format(name, id))
-        except sqlite3.Error:
-            raise SqlSyntaxException('Could not update user.')
-        
-        try:
             self.cur.execute('SELECT * FROM USER WHERE id = {0}'.format(id))
         except sqlite3.Error:
-            raise SqlSyntaxException('Coud not select user.')
+            raise SqlSyntaxException('Coud not update user.')
         
-        user = self.cur.fetchone()
-        if user == None:
+        userRecord = self.cur.fetchone()
+        if userRecord == None:
             return None
         
         return {
-            'id': user[0],
-            'name': user[1]
+            'id': userRecord[0],
+            'name': userRecord[1]
         }
 
     def delete(self, id: int) -> None:

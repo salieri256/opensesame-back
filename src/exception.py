@@ -10,3 +10,9 @@ class SqlSyntaxException(ExtendedException):
 
 class UserNotFoundException(ExtendedException):
     pretext = 'SQL_BUG_EXCEPTION'
+
+class NfcNotFoundException(ExtendedException):
+    pretext = 'SQL_BUG_EXCEPTION'
+
+class EnterLogNotFoundException(ExtendedException):
+    pretext = 'SQL_BUG_EXCEPTION'

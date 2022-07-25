@@ -4,7 +4,6 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '../src/'))
 
 import sqlite3
 from db import UserDb
-from exception import UserNotFoundException
 
 def test_db_user_init():
     dbPath = 'test_db_user_init.db'

@@ -83,7 +83,7 @@ def test_db_nfc_getAll():
     nfcList = nfcDb.getAll()
     assert len(nfcList) == 2
 
-def test_db_nfc_set():
+def test_db_nfc_update():
     dbPath = 'test_db_nfc_set.db'
 
     if os.path.isfile(dbPath):
@@ -95,7 +95,7 @@ def test_db_nfc_set():
     if nfc1 == None:
         assert False
 
-    nfc2 = nfcDb.set( nfc1['id'], 'abcdef', 1 )
+    nfc2 = nfcDb.update( nfc1['id'], 'abcdef', 1 )
     if nfc2 == None:
         assert False
     
@@ -103,7 +103,7 @@ def test_db_nfc_set():
     assert nfc2['nfcId'] == 'abcdef'
     assert nfc2['userId'] == 1
 
-def test_db_nfc_set_not_exist():
+def test_db_nfc_update_not_exist():
     dbPath = 'test_db_nfc_set_not_exist.db'
 
     if os.path.isfile(dbPath):
@@ -111,7 +111,7 @@ def test_db_nfc_set_not_exist():
     
     nfcDb = NfcDb(dbPath)
 
-    nfc = nfcDb.set(0, 'abcdef', 1)
+    nfc = nfcDb.update(0, 'abcdef', 1)
     assert nfc == None
 
 def test_db_nfc_delete():
