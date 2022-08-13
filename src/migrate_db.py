@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from src.models.user import Base as user_base
 from src.models.log import Base as log_base
 
-DB_URL = '{}://{}:{}@{}:{}/{}'.format('postgresql+psycopg2', 'postgres', 'postgres', 'db', '5432', 'db')
+DB_URL = '{}://{}:{}@{}:{}/{}'.format('postgresql+psycopg2', 'postgres', 'postgres', 'db', '5432', 'postgres')
 
 engine = create_engine(DB_URL, echo=True)
 

@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker, scoped_session, declarative_base
 
-ASYNC_DB_URL = '{}://{}:{}@{}:{}/{}'.format('postgresql+asyncpg', 'postgres', 'postgres', 'db', '5432', 'db')
+ASYNC_DB_URL = '{}://{}:{}@{}:{}/{}'.format('postgresql+asyncpg', 'postgres', 'postgres', 'db', '5432', 'postgres')
 
 async_engine = create_async_engine(ASYNC_DB_URL, echo=True)
 async_session = scoped_session(
