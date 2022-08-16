@@ -1,28 +1,25 @@
-from gpiozero.pins.native import NativeFactory
-from gpiozero import Servo
-
-factory = NativeFactory()
-pig = Servo(12, min_pulse_width=0.5/1000, max_pulse_width=2.4/1000, pin_factory=factory)
-
-def rotate_m90():
-    pig.min()
-
-def rotate_0():
-    pig.mid()
-
-def rotate_90():
-    pig.max()
+import time
+from src.libs.servo import Servo
+from src.libs.sg92r import SG92R
 
 class Door:
+    def __init__(self, servo: Servo) -> None:
+        self.servo = servo
+
     def lock(self):
-        rotate_m90()
+        self.servo.setPosition(-90)
+        time.sleep(0.3)
+        self.servo.setPosition(0)
         print('lock door')
 
     def unlock(self):
-        rotate_90()
+        self.servo.setPosition(90)
+        time.sleep(0.3)
+        self.servo.setPosition(0)
         print('unlock door')
 
-door = Door()
+servo = SG92R(PwmPinNumber=12)
+door = Door(servo)
 
 def get_door():
     return door
