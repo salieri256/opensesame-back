@@ -2,8 +2,7 @@ version: '3'
 services:
   api:
     build: .
-    ports:
-      - 8000:8000
+    network_mode: host
   db:
     image: postgres:latest
     ports:
