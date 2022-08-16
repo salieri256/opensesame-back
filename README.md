@@ -1,4 +1,12 @@
-# OpenSesame
+# OpenSesame🚪🏃💨
+Access control system.
+Logs user entry and exit, and opens and locks the door.
+
+## System Requirements
+- Raspberry Pi 4B 8GB
+- Linux raspberrypi 5.15.56-v8+ #1575 SMP PREEMPT aarch64 GNU/Linux
+- Docker version 20.10.17
+- docker compose v2.9.0
 
 ## Setup Docker docker-compose
 ```shell
@@ -13,23 +21,35 @@ $ mv docker-compose-linux-aarch64 ~/.docker/docker-compose
 $ chmod +x ~/.docker/docker-compose
 ```
 
-## Build
+## Setup project
+### Clone
 ```shell
-$ sudo docker compose build
+$ git clone https://github.com/salieri256/opensesame-back.git
+$ cd opensesame-back/
 ```
 
-## Start
-```shell
-$ sudo docker compose up
-```
-
-## .env
+### Create .env
 ```env
 POSTGRES_PASSWORD=****
 ```
 
-## Reset
+### Enable pigpiod
 ```shell
-$ docker-compose exec api poetry run python -m src.migrate_db
+$ sudo systemctl enable pigpiod
+```
+
+### Build
+```shell
+$ sudo docker compose build
+```
+
+### Start
+```shell
+$ sudo docker compose up
+```
+
+### Reset
+```shell
+$ docker compose exec api poetry run python -m src.migrate_db
 ```
 
