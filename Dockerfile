@@ -9,8 +9,8 @@ RUN pip install poetry
 RUN poetry config virtualenvs.in-project true
 RUN poetry install
 
-RUN apt update
-RUN apt upgrade
-RUN apt install libusb-1.0-0
+RUN apt update -y
+RUN apt upgrade -y
+RUN apt install libusb-1.0-0 -y
 
 ENTRYPOINT poetry run uvicorn src.main:app --host 0.0.0.0 --reload
