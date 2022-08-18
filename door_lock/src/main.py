@@ -1,6 +1,6 @@
 import time
-from src.libs.servo import Servo
-from src.libs.sg92r import SG92R
+from src.servo import Servo
+from src.sg92r import SG92R
 
 class Door:
     def __init__(self, servo: Servo) -> None:

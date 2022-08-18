@@ -1,9 +1,22 @@
 version: '3'
 services:
-  api:
-    build: .
-    network_mode: host
+  nfc_lock:
+    build: ./nfc_lock
     privileged: true
+    env_file:
+      - .env
+  nfc_activity:
+    build: ./nfc_activity
+    privileged: true
+    env_file:
+      - .env
+  door_lock:
+    build: ./door_lock
+    network_mode: host
+  db_service:
+    build: ./db_service
+    ports:
+      - 8000:8000
   db:
     image: postgres:latest
     ports:

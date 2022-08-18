@@ -50,6 +50,6 @@ $ sudo docker compose up
 
 ### Reset
 ```shell
-$ docker compose exec api poetry run python -m src.migrate_db
+$ docker compose exec db_service poetry run python -m src.migrate_db
 ```
 

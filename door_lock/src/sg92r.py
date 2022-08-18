@@ -1,5 +1,5 @@
 import pigpio
-from src.libs.servo import Servo
+from src.servo import Servo
 
 class SG92R(Servo):
     def __init__(self, PwmPinNumber: int) -> None:
