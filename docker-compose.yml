@@ -16,7 +16,7 @@ services:
   db_service:
     build: ./db_service
     ports:
-      - 8000:8000
+      - 8001:8000
   db:
     image: postgres:latest
     ports:
