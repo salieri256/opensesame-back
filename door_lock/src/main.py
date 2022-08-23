@@ -1,25 +1,14 @@
-import time
-from src.servo import Servo
-from src.sg92r import SG92R
+from fastapi import FastAPI, Depends, Response
+from src.door import Door, get_door
 
-class Door:
-    def __init__(self, servo: Servo) -> None:
-        self.servo = servo
+app = FastAPI()
 
-    def lock(self):
-        self.servo.setPosition(-90)
-        time.sleep(0.3)
-        self.servo.setPosition(0)
-        print('lock door')
+@app.post('/lock')
+def lock_door(door: Door = Depends(get_door)):
+    door.lock()
+    return Response()
 
-    def unlock(self):
-        self.servo.setPosition(90)
-        time.sleep(0.3)
-        self.servo.setPosition(0)
-        print('unlock door')
-
-servo = SG92R(PwmPinNumber=12)
-door = Door(servo)
-
-def get_door():
-    return door
+@app.delete('/lock')
+def unlock_door(door: Door = Depends(get_door)):
+    door.unlock()
+    return Response()
