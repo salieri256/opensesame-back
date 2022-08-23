@@ -1,5 +1,4 @@
-from fastapi import APIRouter, Depends, status
-from fastapi.responses import JSONResponse
+from fastapi import APIRouter, Depends, status, Response
 from sqlalchemy.ext.asyncio import AsyncSession
 from src.db import get_db
 from src.libs.unix_time import get_unix_time
@@ -16,7 +15,7 @@ async def get_all_lock_logs(db: AsyncSession = Depends(get_db)):
     activityLogList = await activity_log_crud.get_all_activity_logs(db)
 
     if len(activityLogList) == 0:
-        return JSONResponse(status_code=204, content=None)
+        return Response(status_code=204)
 
     return activityLogList
 
@@ -26,5 +25,5 @@ async def get_all_lock_logs(db: AsyncSession = Depends(get_db)):
     status.HTTP_201_CREATED: {'model': activity_log_schema.ActivityLog},
 })
 async def create_lock_log(activity_log_body: activity_log_schema.ActivityLogBase, unix_time: int = Depends(get_unix_time), db: AsyncSession = Depends(get_db)):
-    activityLog = await activity_log_crud.create_activity_log(db, activity_log_body)
+    activityLog = await activity_log_crud.create_activity_log(db, activity_log_body, unix_time)
     return activityLog
