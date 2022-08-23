@@ -1,12 +1,11 @@
 from pydantic import BaseModel, Field
 
-class UserBase(BaseModel):
+class DoorBase(BaseModel):
     name: str
-    nfcId: str | None
 
-class User(UserBase):
+class Door(DoorBase):
     id: int
-    active: bool
+    lock: bool
 
     class Config:
         orm_mode = True

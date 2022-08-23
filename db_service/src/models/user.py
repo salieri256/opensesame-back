@@ -1,10 +1,10 @@
-from sqlalchemy import Column, Integer, String, Boolean
+from sqlalchemy import Column, Integer, Text, Boolean
 from src.db import Base
 
 class User(Base):
-    __tablename__ = 'users'
+    __tablename__ = 'user'
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String)
-    active = Column(Boolean, default=False)
-    nfcId = Column(String)
+    id: int | Column = Column(Integer, primary_key=True, autoincrement=True)
+    isActive: bool | Column = Column(Boolean, default=False)
+    name: str | Column = Column(Text)
+    nfcId: str | None | Column = Column(Text)
