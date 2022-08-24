@@ -7,6 +7,7 @@ authors = ["salieri256"]
 [tool.poetry.dependencies]
 python = "^3.10"
 nfcpy = "^1.0.4"
+httpx = "^0.23.0"
 
 [tool.poetry.dev-dependencies]
 
