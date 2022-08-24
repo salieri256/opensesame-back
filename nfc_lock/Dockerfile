@@ -13,4 +13,4 @@ RUN apt update -y
 RUN apt upgrade -y
 RUN apt install libusb-1.0-0 -y
 
-ENTRYPOINT poetry run python main.py
+ENTRYPOINT poetry run python src/main.py
