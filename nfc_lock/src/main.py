@@ -12,7 +12,7 @@ DB_SERVICE_LOCK_PATH = '/doors/{}/lock'
 DB_SERVICE_LOCK_LOGS_PATH = '/logs/locks'
 DOOR_LOCK_BASE_URL = os.environ['DOOR_LOCK_BASE_URL']
 DOOR_LOCK_LOCK_PATH = '/lock'
-DOOR_ID = os.environ['DOOR_ID']
+DOOR_ID = int( os.environ['DOOR_ID'] )
 
 def convert_bytes_to_id(data: bytes):
     idm = binascii.hexlify(data)
