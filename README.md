@@ -62,6 +62,7 @@ DB_SERVICE_BASE_URL=
 ```env
 DB_SERVICE_BASE_URL=
 DOOR_LOCK_BASE_URL=
+DOOR_ID=
 ```
 
 ### Enable pigpiod
