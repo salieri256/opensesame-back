@@ -7,7 +7,7 @@ services:
       - host.docker.internal:host-gateway
     privileged: true
     env_file:
-      - .env
+      - ./nfc_lock/.env
   nfc_activity:
     build: ./nfc_activity
     network_mode: host
@@ -15,21 +15,25 @@ services:
       - host.docker.internal:host-gateway
     privileged: true
     env_file:
-      - .env
+      - ./nfc_activity/.env
   door_lock:
     build: ./door_lock
     network_mode: host
     extra_hosts:
       - host.docker.internal:host-gateway
+    env_file:
+      - ./door_lock/.env
   db_service:
     build: ./db_service
     network_mode: host
     extra_hosts:
       - host.docker.internal:host-gateway
+    env_file:
+      - ./db_service/.env
   db:
     image: postgres:latest
     network_mode: host
     extra_hosts:
       - host.docker.internal:host-gateway
     env_file:
-      - .env
+      - ./db/.env
