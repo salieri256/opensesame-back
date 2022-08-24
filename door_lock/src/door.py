@@ -1,6 +1,9 @@
+import os
 import time
 from src.servo import Servo
 from src.sg92r import SG92R
+
+PWM_PORT = int( os.environ['PWM_PORT'] )
 
 class Door:
     def __init__(self, servo: Servo) -> None:
@@ -18,7 +21,7 @@ class Door:
         self.servo.setPosition(0)
         print('unlock door')
 
-servo = SG92R(PwmPinNumber=12)
+servo = SG92R(PwmPinNumber=PWM_PORT)
 door = Door(servo)
 
 def get_door():

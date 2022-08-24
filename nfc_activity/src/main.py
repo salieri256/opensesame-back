@@ -1,10 +1,11 @@
+import os
 import binascii
 import nfc
 import time
 
 import httpx
 
-DB_SERVICE_BASE_URL = 'http://127.0.0.1:8001'
+DB_SERVICE_BASE_URL = os.environ['DB_SERVICE_BASE_URL']
 USERS_RESOURCE_PATH = '/users'
 ACTIVE_RESOURCE_PATH = '/users/{}/active'
 ACTIVITY_LOGS_RESOURCE_PATH = '/logs/activities'

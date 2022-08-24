@@ -29,8 +29,39 @@ $ cd opensesame-back/
 ```
 
 ### Create .env
+./db/.env
 ```env
-POSTGRES_PASSWORD=****
+POSTGRES_PORT=
+POSTGRES_USER=
+POSTGRES_PASSWORD=
+POSTGRES_DB=
+```
+
+./db_service/.env
+```env
+DB_HOST=
+DB_PORT=
+DB_USER=
+DB_PASSWORD=
+DB_NAME=
+API_PORT=
+```
+
+./door_lock/.env
+```env
+PWM_PORT=
+API_PORT=
+```
+
+./nfc_activity/.env
+```env
+DB_SERVICE_BASE_URL=
+```
+
+./nfc_lock/.env
+```env
+DB_SERVICE_BASE_URL=
+DOOR_LOCK_BASE_URL=
 ```
 
 ### Enable pigpiod

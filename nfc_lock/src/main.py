@@ -1,17 +1,18 @@
+import os
 import binascii
 import nfc
 import time
 
 import httpx
 
-DB_SERVICE_BASE_URL = 'http://127.0.0.1:8001'
+DB_SERVICE_BASE_URL = os.environ['DB_SERVICE_BASE_URL']
 DB_SERVICE_USERS_PATH = '/users'
 DB_SERVICE_DOORS_PATH = '/doors'
 DB_SERVICE_LOCK_PATH = '/doors/{}/lock'
 DB_SERVICE_LOCK_LOGS_PATH = '/logs/locks'
-DOOR_LOCK_BASE_URL = 'http://127.0.0.1:8000'
+DOOR_LOCK_BASE_URL = os.environ['DOOR_LOCK_BASE_URL']
 DOOR_LOCK_LOCK_PATH = '/lock'
-DOOR_ID = 1
+DOOR_ID = os.environ['DOOR_ID']
 
 def convert_bytes_to_id(data: bytes):
     idm = binascii.hexlify(data)
