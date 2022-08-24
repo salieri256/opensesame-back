@@ -4,7 +4,7 @@ from src.models.door import Base as door_base
 from src.models.activity_log import Base as activity_log_base
 from src.models.lock_log import Base as lock_log_base
 
-DB_URL = '{}://{}:{}@{}:{}/{}'.format('postgresql+psycopg2', 'postgres', 'postgres', 'db', '5432', 'postgres')
+DB_URL = '{}://{}:{}@{}:{}/{}'.format('postgresql+psycopg2', 'postgres', 'postgres', 'host.docker.internal', '5432', 'postgres')
 
 engine = create_engine(DB_URL, echo=True)
 

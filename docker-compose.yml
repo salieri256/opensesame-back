@@ -2,24 +2,34 @@ version: '3'
 services:
   nfc_lock:
     build: ./nfc_lock
+    network_mode: host
+    extra_hosts:
+      - host.docker.internal:host-gateway
     privileged: true
     env_file:
       - .env
   nfc_activity:
     build: ./nfc_activity
+    network_mode: host
+    extra_hosts:
+      - host.docker.internal:host-gateway
     privileged: true
     env_file:
       - .env
   door_lock:
     build: ./door_lock
     network_mode: host
+    extra_hosts:
+      - host.docker.internal:host-gateway
   db_service:
     build: ./db_service
-    ports:
-      - 8001:8000
+    network_mode: host
+    extra_hosts:
+      - host.docker.internal:host-gateway
   db:
     image: postgres:latest
-    ports:
-      - 5432:5432
+    network_mode: host
+    extra_hosts:
+      - host.docker.internal:host-gateway
     env_file:
       - .env
