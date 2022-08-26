@@ -6,7 +6,7 @@ class UserBase(BaseModel):
 
 class User(UserBase):
     id: int
-    active: bool
+    isActive: bool
 
     class Config:
         orm_mode = True

@@ -5,7 +5,7 @@ class DoorBase(BaseModel):
 
 class Door(DoorBase):
     id: int
-    lock: bool
+    isLocked: bool
 
     class Config:
         orm_mode = True
