@@ -1,0 +1,30 @@
+version: '3'
+services:
+  nfc_lock:
+    build: ./nfc_lock
+    privileged: true
+    env_file:
+      - ./nfc_lock/.env
+  nfc_activity:
+    build: ./nfc_activity
+    privileged: true
+    env_file:
+      - ./nfc_activity/.env
+  door_lock:
+    build: ./door_lock
+    ports:
+      - 8001:8001
+    env_file:
+      - ./door_lock/.env
+  db_service:
+    build: ./db_service
+    ports:
+      - 8000:8000
+    env_file:
+      - ./db_service/.env
+  db:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    env_file:
+      - ./db/.env
