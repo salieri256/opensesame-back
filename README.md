@@ -53,7 +53,7 @@ ALLOW_CREDENTIALS=
 
 ./door_lock/.env
 ```env
-PWM_PORT=
+PWM_PIN=
 API_PORT=
 ALLOW_ORIGINS=[]
 ALLOW_METHODS=[]
