@@ -16,22 +16,36 @@ def convert_bytes_to_id(data: bytes):
     return idm.decode()
 
 def fetch_users():
-    res = httpx.get(DB_SERVICE_BASE_URL + USERS_RESOURCE_PATH)
-    users = res.json()
-    return users
+    try:
+        res = httpx.get(DB_SERVICE_BASE_URL + USERS_RESOURCE_PATH)
+        users = res.json()
+        return users
+    except Exception as e:
+        print(e)
+        return None
 
 def activate_user(userId: int):
-    httpx.post(DB_SERVICE_BASE_URL + ACTIVE_RESOURCE_PATH.format(userId))
+    try:
+        httpx.post(DB_SERVICE_BASE_URL + ACTIVE_RESOURCE_PATH.format(userId))
+    except Exception as e:
+        print(e)
 
 def deactivate_user(userId: int):
-    httpx.delete(DB_SERVICE_BASE_URL + ACTIVE_RESOURCE_PATH.format(userId))
+    try:
+        httpx.delete(DB_SERVICE_BASE_URL + ACTIVE_RESOURCE_PATH.format(userId))
+    except Exception as e:
+        print(e)
 
 def post_activity_log(userId: int, isActive: bool):
     activity_log_base_body = {
         'userId': userId,
         'isActive': isActive,
     }
-    httpx.post(DB_SERVICE_BASE_URL + ACTIVITY_LOGS_RESOURCE_PATH, json=activity_log_base_body)
+
+    try:
+        httpx.post(DB_SERVICE_BASE_URL + ACTIVITY_LOGS_RESOURCE_PATH, json=activity_log_base_body)
+    except Exception as e:
+        print(e)
 
 def on_found_user_with_same_nfc(user: dict):
     userId = user['id']
@@ -46,7 +60,8 @@ def on_detect_nfc(tag: nfc.tag.Tag):
     nfcId = convert_bytes_to_id(tag.identifier)
     users = fetch_users()
 
-    print(nfcId)
+    if users is None:
+        return
 
     for user in users:
         if user['nfcId'] == nfcId:

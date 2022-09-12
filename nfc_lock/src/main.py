@@ -20,26 +20,46 @@ def convert_bytes_to_id(data: bytes):
     return idm.decode()
 
 def fetch_users():
-    res = httpx.get(DB_SERVICE_BASE_URL + DB_SERVICE_USERS_PATH)
-    users = res.json()
-    return users
+    try:
+        res = httpx.get(DB_SERVICE_BASE_URL + DB_SERVICE_USERS_PATH)
+        users = res.json()
+        return users
+    except Exception as e:
+        print(e)
+        return None
 
 def fetch_doors():
-    res = httpx.get(DB_SERVICE_BASE_URL + DB_SERVICE_DOORS_PATH)
-    door = res.json()
-    return door
+    try:
+        res = httpx.get(DB_SERVICE_BASE_URL + DB_SERVICE_DOORS_PATH)
+        door = res.json()
+        return door
+    except Exception as e:
+        print(e)
+        return None
 
 def lock_door():
-    httpx.post(DOOR_LOCK_BASE_URL + DOOR_LOCK_LOCK_PATH)
+    try:
+        httpx.post(DOOR_LOCK_BASE_URL + DOOR_LOCK_LOCK_PATH)
+    except Exception as e:
+        print(e)
 
 def unlock_door():
-    httpx.delete(DOOR_LOCK_BASE_URL + DOOR_LOCK_LOCK_PATH)
+    try:
+        httpx.delete(DOOR_LOCK_BASE_URL + DOOR_LOCK_LOCK_PATH)
+    except Exception as e:
+        print(e)
 
 def keep_door_lock(doorId: int):
-    httpx.post(DB_SERVICE_BASE_URL + DB_SERVICE_LOCK_PATH.format(doorId))
+    try:
+        httpx.post(DB_SERVICE_BASE_URL + DB_SERVICE_LOCK_PATH.format(doorId))
+    except Exception as e:
+        print(e)
 
 def keep_door_unlock(doorId: int):
-    httpx.delete(DB_SERVICE_BASE_URL + DB_SERVICE_LOCK_PATH.format(doorId))
+    try:
+        httpx.delete(DB_SERVICE_BASE_URL + DB_SERVICE_LOCK_PATH.format(doorId))
+    except Exception as e:
+        print(e)
 
 def post_lock_log(doorId: int, userId: int, isLocked: bool):
     lock_log_base_body = {
@@ -47,7 +67,11 @@ def post_lock_log(doorId: int, userId: int, isLocked: bool):
         'userId': userId,
         'isLocked': isLocked,
     }
-    httpx.post(DB_SERVICE_BASE_URL + DB_SERVICE_LOCK_LOGS_PATH, json=lock_log_base_body)
+
+    try:
+        httpx.post(DB_SERVICE_BASE_URL + DB_SERVICE_LOCK_LOGS_PATH, json=lock_log_base_body)
+    except Exception as e:
+        print(e)
 
 def on_found_door_with_same_door_id(user: dict, door: dict):
     userId = user['id']
@@ -64,6 +88,9 @@ def on_found_door_with_same_door_id(user: dict, door: dict):
 
 def on_found_user_with_same_nfc(user: dict):
     doors = fetch_doors()
+
+    if doors is None:
+        return
     
     for door in doors:
         if door['id'] == DOOR_ID:
@@ -73,7 +100,8 @@ def on_detect_nfc(tag: nfc.tag.Tag):
     nfcId = convert_bytes_to_id(tag.identifier)
     users = fetch_users()
 
-    print(nfcId)
+    if users is None:
+        return
 
     for user in users:
         if user['nfcId'] == nfcId:
