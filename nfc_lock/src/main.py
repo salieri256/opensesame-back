@@ -12,6 +12,7 @@ DB_SERVICE_LOCK_PATH = '/doors/{}/lock'
 DB_SERVICE_LOCK_LOGS_PATH = '/logs/locks'
 DOOR_LOCK_BASE_URL = os.environ['DOOR_LOCK_BASE_URL']
 DOOR_LOCK_LOCK_PATH = '/lock'
+DEVICE_PATH = os.environ['DEVICE_PATH']
 DOOR_ID = int( os.environ['DOOR_ID'] )
 
 def convert_bytes_to_id(data: bytes):
@@ -81,7 +82,7 @@ def on_detect_nfc(tag: nfc.tag.Tag):
 def main():
     try:
         while True:
-            with nfc.ContactlessFrontend('usb') as clf:
+            with nfc.ContactlessFrontend(DEVICE_PATH) as clf:
                 clf.connect(rdwr={'targets': ['212F', '424F', '106A', '106B'], 'on-connect': on_detect_nfc})
                 time.sleep(1)
     except KeyboardInterrupt:

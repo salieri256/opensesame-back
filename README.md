@@ -64,12 +64,14 @@ ALLOW_CREDENTIALS=
 ./nfc_activity/.env
 ```env
 DB_SERVICE_BASE_URL=
+DEVICE_PATH=
 ```
 
 ./nfc_lock/.env
 ```env
 DB_SERVICE_BASE_URL=
 DOOR_LOCK_BASE_URL=
+DEVICE_PATH=
 DOOR_ID=
 ```
 
@@ -131,11 +133,13 @@ ALLOW_CREDENTIALS=False
 ./nfc_activity/.env
 ```env
 DB_SERVICE_BASE_URL=192.168.0.3:8000
+DEVICE_PATH=usb
 ```
 
 ./nfc_lock/.env
 ```env
 DB_SERVICE_BASE_URL=192.168.0.3:8000
 DOOR_LOCK_BASE_URL=192.168.0.4:8001
+DEVICE_PATH=usb
 DOOR_ID=1
 ```
