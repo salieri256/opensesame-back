@@ -82,7 +82,7 @@ def main():
     try:
         while True:
             with nfc.ContactlessFrontend('usb') as clf:
-                clf.connect(rdwr={'on-connect': on_detect_nfc})
+                clf.connect(rdwr={'targets': ['212F', '424F', '106A', '106B'], 'on-connect': on_detect_nfc})
                 time.sleep(1)
     except KeyboardInterrupt:
         pass
