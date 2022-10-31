@@ -7,3 +7,4 @@ class Door(Base):
     id: int | Column = Column(Integer, primary_key=True, autoincrement=True)
     isLocked: bool | Column = Column(Boolean, default=False)
     name: str | Column = Column(Text)
+    icon: str | Column = Column(Text)

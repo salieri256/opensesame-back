@@ -8,3 +8,4 @@ class User(Base):
     isActive: bool | Column = Column(Boolean, default=False)
     name: str | Column = Column(Text)
     nfcId: str | None | Column = Column(Text)
+    icon: str | Column = Column(Text)
